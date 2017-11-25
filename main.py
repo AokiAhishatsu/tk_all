@@ -29,9 +29,14 @@ class MainWindow(tkinter.LabelFrame):
 		cb1 = tkinter.Checkbutton(self, text="Checkbutton", variable=cb1_var, command=lambda: print("Checkbox:" + str(cb1_var.get())))
 		cb1.grid(column=2, row=0)
 
-		rb1_var = tkinter.BooleanVar()
-		rb1 = tkinter.Radiobutton(self, text="Radiobutton", variable=rb1_var)
-		rb1.grid(column=3, row=0)
+		rb_frame = tkinter.Frame(self)
+		rb_frame.grid(column=3, row=0)
+		self.rb_var = tkinter.IntVar(value=0)
+		rb1 = tkinter.Radiobutton(rb_frame, text="Radiobutton", variable=self.rb_var, value=1)
+		rb1.grid(column=0, row=0)
+		rb2 = tkinter.Radiobutton(rb_frame, text="Radiobutton", variable=self.rb_var, value=2)
+		rb2.grid(column=0, row=1)
+		rb1.invoke()
 
 		label1 = tkinter.Label(self, text="Label")
 		label1.grid(column=4, row=0)
