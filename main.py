@@ -76,7 +76,16 @@ class MainWindow(tkinter.LabelFrame):
 		text.insert("1.0", "Text + Scrollbar\n")
 		text.insert("end", resource.lorem_ipsum_1000)
 
-		self.grid(column=0, row=0)
+		# Add weight to all cells
+		for x in range(10):
+			tkinter.Grid.columnconfigure(self, 9, weight=1)
+		for y in range(2):
+			tkinter.Grid.rowconfigure(self, y, weight=1)
+
+		parent.columnconfigure(0, weight=1)
+		parent.rowconfigure(0, weight=1)
+
+		self.grid(column=0, row=0, sticky='nsew')
 
 
 def main():
