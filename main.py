@@ -2,34 +2,41 @@ import tkinter
 import resource
 
 
-def bool_to_checked_str(value:bool) -> str:
+def bool_to_checked_str(value: bool) -> str:
 	return "checked" if value else "unchecked"
 
 
 class MainWindow(tkinter.LabelFrame):
 	def __init__(self, parent, **options):
 		super(MainWindow, self).__init__(parent, **options)
+		meta_menu = tkinter.Menu(self)
 
-		menu = tkinter.Menu(self)
+		# Menu1 (Labels)
+		menu1 = tkinter.Menu(meta_menu, tearoff=False)
+		meta_menu.add_cascade(label="Menu1", menu=menu1)
+		menu1.add_command(label="Label1", command=lambda: print("Menu1: label1 clicked"))
+		menu1.add_command(label="Label2", command=lambda: print("Menu1: label1 clicked"))
+		menu1.add_command(label="Label3", command=lambda: print("Menu1: label1 clicked"))
 
-		# Menu 1
-		submenu1 = tkinter.Menu(menu, tearoff=False)
-		menu.add_cascade(label="Menu1", menu=submenu1)
-		submenu1.add_command(label="label1", command=lambda: print("submenu1: label1 clicked"))
-		submenu1.add_command(label="label2", command=lambda: print("submenu1: label1 clicked"))
-		submenu1.add_command(label="label3", command=lambda: print("submenu1: label1 clicked"))
+		# Menu2 (Checkbuttons)
+		menu2 = tkinter.Menu(meta_menu)
+		meta_menu.add_cascade(label="Menu2", menu=menu2)
+		cb1_var = tkinter.BooleanVar(value=True)
+		cb2_var = tkinter.BooleanVar()
+		cb3_var = tkinter.BooleanVar()
+		menu2.add_checkbutton(label="Checkbutton1", variable=cb1_var, command=lambda: print("Menu2: Checkbutton1 = " + bool_to_checked_str(cb1_var.get())))
+		menu2.add_checkbutton(label="Checkbutton2", variable=cb2_var, command=lambda: print("Menu2: Checkbutton2 = " + bool_to_checked_str(cb2_var.get())))
+		menu2.add_checkbutton(label="Checkbutton3", variable=cb3_var, command=lambda: print("Menu2: Checkbutton3 = " + bool_to_checked_str(cb3_var.get())))
 
-		# Menu 2
-		submenu2 = tkinter.Menu(menu)
-		menu.add_cascade(label="Menu2", menu=submenu2)
-		sm_cb_var1 = tkinter.BooleanVar(value=True)
-		sm_cb_var2 = tkinter.BooleanVar(value=False)
-		sm_cb_var3 = tkinter.BooleanVar(value=False)
-		submenu2.add_checkbutton(label="checkbutton1", variable=sm_cb_var1, command=lambda: print("submenu2: checkbutton1 = " + bool_to_checked_str(sm_cb_var1.get())))
-		submenu2.add_checkbutton(label="checkbutton2", variable=sm_cb_var2, command=lambda: print("submenu2: checkbutton2 = " + bool_to_checked_str(sm_cb_var2.get())))
-		submenu2.add_checkbutton(label="checkbutton3", variable=sm_cb_var3, command=lambda: print("submenu2: checkbutton3 = " + bool_to_checked_str(sm_cb_var3.get())))
+		# Menu3 (Radiobuttons)
+		menu3 = tkinter.Menu(meta_menu)
+		meta_menu.add_cascade(label="Menu3", menu=menu3)
+		self.rb_var = tkinter.IntVar(value=0)  # Self needed here to set a valid state.
+		menu3.add_radiobutton(label="Radiobutton1", variable=self.rb_var, value=0, command=lambda: print("Menu3: Radiobutton1 selected"))
+		menu3.add_radiobutton(label="Radiobutton2", variable=self.rb_var, value=1, command=lambda: print("Menu3: Radiobutton2 selected"))
+		menu3.add_radiobutton(label="Radiobutton3", variable=self.rb_var, value=2, command=lambda: print("Menu3: Radiobutton3 selected"))
 
-		self.master.config(menu=menu)
+		self.master.config(menu=meta_menu)
 
 		# Buttons
 		btn_frame = tkinter.Frame(self)
@@ -44,25 +51,22 @@ class MainWindow(tkinter.LabelFrame):
 		# Checkbuttons
 		cb_frame = tkinter.Frame(self)
 		cb_frame.grid(column=1, row=0)
-		cb1_var = tkinter.BooleanVar(value=True)
 		cb1 = tkinter.Checkbutton(cb_frame, text="Checkbutton1", variable=cb1_var, command=lambda: print("Checkbox1 = " + bool_to_checked_str(cb1_var.get())))
 		cb1.grid(column=0, row=0)
-		cb2_var = tkinter.BooleanVar()
-		cb2 = tkinter.Checkbutton(cb_frame, text="Checkbutton2", variable=cb2_var, command=lambda: print("Checkbox2 = " + bool_to_checked_str(cb1_var.get())))
+		cb2 = tkinter.Checkbutton(cb_frame, text="Checkbutton2", variable=cb2_var, command=lambda: print("Checkbox2 = " + bool_to_checked_str(cb2_var.get())))
 		cb2.grid(column=0, row=1)
-		cb3_var = tkinter.BooleanVar()
-		cb3 = tkinter.Checkbutton(cb_frame, text="Checkbutton3", variable=cb3_var, command=lambda: print("Checkbox3 = " + bool_to_checked_str(cb1_var.get())))
+		cb3 = tkinter.Checkbutton(cb_frame, text="Checkbutton3", variable=cb3_var, command=lambda: print("Checkbox3 = " + bool_to_checked_str(cb3_var.get())))
 		cb3.grid(column=0, row=3)
 
 		# Radiobuttons
 		rb_frame = tkinter.Frame(self)
 		rb_frame.grid(column=2, row=0)
-		self.rb_var = tkinter.IntVar(value=0)
-		rb1 = tkinter.Radiobutton(rb_frame, text="Radiobutton1", variable=self.rb_var, value=0, command=lambda: print("rb1 selected"))
+
+		rb1 = tkinter.Radiobutton(rb_frame, text="Radiobutton1", variable=self.rb_var, value=0, command=lambda: print("Radiobutton1 selected"))
 		rb1.grid(column=0, row=0)
-		rb2 = tkinter.Radiobutton(rb_frame, text="Radiobutton2", variable=self.rb_var, value=1, command=lambda: print("rb2 selected"))
+		rb2 = tkinter.Radiobutton(rb_frame, text="Radiobutton2", variable=self.rb_var, value=1, command=lambda: print("Radiobutton2 selected"))
 		rb2.grid(column=0, row=1)
-		rb3 = tkinter.Radiobutton(rb_frame, text="Radiobutton3", variable=self.rb_var, value=2, command=lambda: print("rb3 selected"))
+		rb3 = tkinter.Radiobutton(rb_frame, text="Radiobutton3", variable=self.rb_var, value=2, command=lambda: print("Radiobutton3 selected"))
 		rb3.grid(column=0, row=2)
 		rb1.invoke()
 
