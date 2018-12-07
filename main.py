@@ -4,7 +4,7 @@ import resource
 
 class MainWindow(tkinter.LabelFrame):
 	def __init__(self, parent, **options):
-		tkinter.LabelFrame.__init__(self, parent, **options)
+		super(MainWindow, self).__init__(parent, **options)
 
 		menu = tkinter.Menu(self)
 		submenu = tkinter.Menu(menu)
