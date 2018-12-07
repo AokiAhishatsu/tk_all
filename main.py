@@ -2,17 +2,33 @@ import tkinter
 import resource
 
 
+def bool_to_checked_str(value:bool) -> str:
+	return "checked" if value else "unchecked"
+
+
 class MainWindow(tkinter.LabelFrame):
 	def __init__(self, parent, **options):
 		super(MainWindow, self).__init__(parent, **options)
 
-		# Menu
 		menu = tkinter.Menu(self)
-		submenu = tkinter.Menu(menu)
-		menu.add_cascade(label="menu", menu=submenu)
-		submenu.add_command(label="label", command=lambda: print("submenu: label clicked"))
-		submenu_cb_var = tkinter.BooleanVar(value=True)
-		submenu.add_checkbutton(label="checkbutton", variable=submenu_cb_var, command=lambda: print("submenu: checkbutton = " + str(submenu_cb_var.get())))
+
+		# Menu 1
+		submenu1 = tkinter.Menu(menu, tearoff=False)
+		menu.add_cascade(label="Menu1", menu=submenu1)
+		submenu1.add_command(label="label1", command=lambda: print("submenu1: label1 clicked"))
+		submenu1.add_command(label="label2", command=lambda: print("submenu1: label1 clicked"))
+		submenu1.add_command(label="label3", command=lambda: print("submenu1: label1 clicked"))
+
+		# Menu 2
+		submenu2 = tkinter.Menu(menu)
+		menu.add_cascade(label="Menu2", menu=submenu2)
+		sm_cb_var1 = tkinter.BooleanVar(value=True)
+		sm_cb_var2 = tkinter.BooleanVar(value=False)
+		sm_cb_var3 = tkinter.BooleanVar(value=False)
+		submenu2.add_checkbutton(label="checkbutton1", variable=sm_cb_var1, command=lambda: print("submenu2: checkbutton1 = " + bool_to_checked_str(sm_cb_var1.get())))
+		submenu2.add_checkbutton(label="checkbutton2", variable=sm_cb_var2, command=lambda: print("submenu2: checkbutton2 = " + bool_to_checked_str(sm_cb_var2.get())))
+		submenu2.add_checkbutton(label="checkbutton3", variable=sm_cb_var3, command=lambda: print("submenu2: checkbutton3 = " + bool_to_checked_str(sm_cb_var3.get())))
+
 		self.master.config(menu=menu)
 
 		# Buttons
@@ -29,24 +45,24 @@ class MainWindow(tkinter.LabelFrame):
 		cb_frame = tkinter.Frame(self)
 		cb_frame.grid(column=1, row=0)
 		cb1_var = tkinter.BooleanVar(value=True)
-		cb1 = tkinter.Checkbutton(cb_frame, text="Checkbutton1", variable=cb1_var, command=lambda: print("Checkbox1:" + str(cb1_var.get())))
+		cb1 = tkinter.Checkbutton(cb_frame, text="Checkbutton1", variable=cb1_var, command=lambda: print("Checkbox1 = " + bool_to_checked_str(cb1_var.get())))
 		cb1.grid(column=0, row=0)
 		cb2_var = tkinter.BooleanVar()
-		cb2 = tkinter.Checkbutton(cb_frame, text="Checkbutton2", variable=cb2_var, command=lambda: print("Checkbox2:" + str(cb1_var.get())))
+		cb2 = tkinter.Checkbutton(cb_frame, text="Checkbutton2", variable=cb2_var, command=lambda: print("Checkbox2 = " + bool_to_checked_str(cb1_var.get())))
 		cb2.grid(column=0, row=1)
 		cb3_var = tkinter.BooleanVar()
-		cb3 = tkinter.Checkbutton(cb_frame, text="Checkbutton3", variable=cb3_var, command=lambda: print("Checkbox3:" + str(cb1_var.get())))
+		cb3 = tkinter.Checkbutton(cb_frame, text="Checkbutton3", variable=cb3_var, command=lambda: print("Checkbox3 = " + bool_to_checked_str(cb1_var.get())))
 		cb3.grid(column=0, row=3)
 
 		# Radiobuttons
 		rb_frame = tkinter.Frame(self)
 		rb_frame.grid(column=2, row=0)
 		self.rb_var = tkinter.IntVar(value=0)
-		rb1 = tkinter.Radiobutton(rb_frame, text="Radiobutton1", variable=self.rb_var, value=0, command=lambda:print("rb1 selected"))
+		rb1 = tkinter.Radiobutton(rb_frame, text="Radiobutton1", variable=self.rb_var, value=0, command=lambda: print("rb1 selected"))
 		rb1.grid(column=0, row=0)
-		rb2 = tkinter.Radiobutton(rb_frame, text="Radiobutton2", variable=self.rb_var, value=1, command=lambda:print("rb2 selected"))
+		rb2 = tkinter.Radiobutton(rb_frame, text="Radiobutton2", variable=self.rb_var, value=1, command=lambda: print("rb2 selected"))
 		rb2.grid(column=0, row=1)
-		rb3 = tkinter.Radiobutton(rb_frame, text="Radiobutton3", variable=self.rb_var, value=2, command=lambda:print("rb3 selected"))
+		rb3 = tkinter.Radiobutton(rb_frame, text="Radiobutton3", variable=self.rb_var, value=2, command=lambda: print("rb3 selected"))
 		rb3.grid(column=0, row=2)
 		rb1.invoke()
 
@@ -80,7 +96,7 @@ class MainWindow(tkinter.LabelFrame):
 		# Listbox
 		listbox1 = tkinter.Listbox(self, height=4)
 		for i in range(5):
-			listbox1.insert(i, "Listbox line " + str(i+1))
+			listbox1.insert(i, "Listbox line " + str(i + 1))
 		listbox1.grid(column=8, row=0)
 
 		# PhotoImage
@@ -104,11 +120,11 @@ class MainWindow(tkinter.LabelFrame):
 
 		# Add weight to all cells
 		for x in range(10):
-			tkinter.Grid.columnconfigure(self, 9, weight=1)
+			tkinter.Grid.columnconfigure(self, x, weight=1)
 		for y in range(2):
 			tkinter.Grid.rowconfigure(self, y, weight=1)
 
-		# Add weight parent
+		# Add weight to parent
 		parent.columnconfigure(0, weight=1)
 		parent.rowconfigure(0, weight=1)
 
