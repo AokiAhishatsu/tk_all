@@ -14,9 +14,9 @@ class MainWindow(tkinter.LabelFrame):
 		# Menu1 (Labels)
 		menu1 = tkinter.Menu(meta_menu, tearoff=False)
 		meta_menu.add_cascade(label="Menu1", menu=menu1)
-		menu1.add_command(label="Label1", command=lambda: print("Menu1: label1 clicked"))
-		menu1.add_command(label="Label2", command=lambda: print("Menu1: label1 clicked"))
-		menu1.add_command(label="Label3", command=lambda: print("Menu1: label1 clicked"))
+		menu1.add_command(label="Label1", command=lambda: print("Menu1: Label1 clicked"))
+		menu1.add_command(label="Label2", command=lambda: print("Menu1: Label1 clicked"))
+		menu1.add_command(label="Label3", command=lambda: print("Menu1: Label1 clicked"))
 
 		# Menu2 (Checkbuttons)
 		menu2 = tkinter.Menu(meta_menu)
@@ -138,7 +138,7 @@ class MainWindow(tkinter.LabelFrame):
 def main():
 	root = tkinter.Tk()
 	root.title("tk_all")
-	main_window = MainWindow(root, text="Labelframe")
+	main_window = MainWindow(root, text="Labelframe (w/ Grid)")
 	root.mainloop()
 
 
