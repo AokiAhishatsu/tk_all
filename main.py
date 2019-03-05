@@ -29,7 +29,7 @@ class SelectWindow(ttk.Frame):
 			self.themes_box.select_set(0)
 		self.themes_box.grid(column=0, row=2, sticky='nw')
 
-		btn1 = tk.Button(self, text="Button1", command=self.switch_window)
+		btn1 = tk.Button(self, text="Open", command=self.switch_window)
 		self.themes_box.config(state="disabled")
 		btn1.grid(column=0, row=3)
 
@@ -119,38 +119,58 @@ class MainWindow(tk.Frame):
 		rb3.grid(column=0, row=2)
 		rb1.invoke()
 
+		# Label
+		label_frame = tk.Frame(self)
+		label_frame.grid(column=3, row=0)
+		label1 = tk.Label(label_frame, text="Label1")
+		label1.grid(column=0, row=0)
+		label2 = tk.Label(label_frame, text="Label2")
+		label2.grid(column=0, row=1)
+		label3 = tk.Label(label_frame, text="Label3")
+		label3.grid(column=0, row=2)
+
+		# Entry
+		entry_frame = tk.Frame(self)
+		entry_frame.grid(column=4, row=0)
+		entry1_var = tk.StringVar(self, value='Entry1')
+		entry1 = tk.Entry(entry_frame, width=6, textvariable=entry1_var)
+		entry1.grid(column=0, row=0)
+		entry2_var = tk.StringVar(entry_frame, value='Entry2')
+		entry2 = tk.Entry(entry_frame, width=6, textvariable=entry2_var)
+		entry2.grid(column=0, row=1)
+		entry3_var = tk.StringVar(entry_frame, value='Entry3')
+		entry3 = tk.Entry(entry_frame, width=6, textvariable=entry3_var)
+		entry3.grid(column=0, row=2)
+
+		# Spinbox
+		spinbox_frame = tk.Frame(self)
+		spinbox_frame.grid(column=5, row=0)
+		spinbox1_text = tk.StringVar(value="Spinbox")
+		spinbox1 = tk.Spinbox(spinbox_frame, width=8, textvariable=spinbox1_text, command=lambda: print("Spinbox:up/down"))
+		spinbox1.grid(column=0, row=0)
+		spinbox2 = tk.Spinbox(spinbox_frame, width=8, justify="center", from_=-10, to=10, command=lambda: print("Spinbox:up/down"))
+		spinbox2.grid(column=0, row=1)
+		spinbox3 = tk.Spinbox(spinbox_frame, width=8, justify="center", from_=1000, to=2500, increment=100, command=lambda: print("Spinbox:up/down"))
+		spinbox3.grid(column=0, row=2)
+
+		# Listbox
+		listbox1 = tk.Listbox(self, height=4)
+		for i in range(5):
+			listbox1.insert(i, "Listbox line " + str(i + 1))
+		listbox1.grid(column=6, row=0)
+
+		# Scale
+		scale1_var = tk.IntVar(value=50)
+		scale1 = tk.Scale(self, label="Scale", variable=scale1_var, orient="horizontal", command=lambda x=str(scale1_var.get()): print("Scale:" + x))
+		scale1.grid(column=7, row=0)
+
 		# Canvas
 		canvas1 = tk.Canvas(self, width=100, height=50)
 		canvas1.create_line(0, 0, 100, 50, fill="blue", dash=(4, 4))
 		canvas1.create_line(0, 50, 100, 0, fill="red", dash=(4, 4))
 		canvas1.create_text(50, 25, text="Canvas")
 		canvas1.create_oval(5, 5, 100, 50)
-		canvas1.grid(column=3, row=0)
-
-		# Label
-		label1 = tk.Label(self, text="Label")
-		label1.grid(column=4, row=0)
-
-		# Entry
-		entry1_var = tk.StringVar(self, value='Entry')
-		entry1 = tk.Entry(self, width=6, textvariable=entry1_var)
-		entry1.grid(column=5, row=0)
-
-		# Spinbox
-		spinbox1_text = tk.StringVar(value="Spinbox")
-		spinbox1 = tk.Spinbox(self, width=8, textvariable=spinbox1_text, command=lambda: print("Spinbox:up/down"))
-		spinbox1.grid(column=6, row=0)
-
-		# Scale
-		scale1_var = tk.IntVar(value=50)
-		scale1 = tk.Scale(self, label="Scale", variable=scale1_var, command=lambda x=str(scale1_var.get()): print("Scale:" + x))
-		scale1.grid(column=7, row=0)
-
-		# Listbox
-		listbox1 = tk.Listbox(self, height=4)
-		for i in range(5):
-			listbox1.insert(i, "Listbox line " + str(i + 1))
-		listbox1.grid(column=8, row=0)
+		canvas1.grid(column=8, row=0)
 
 		# PhotoImage
 		self.photo_image = tk.PhotoImage(data=resource.deer_img_b64)
@@ -160,11 +180,11 @@ class MainWindow(tk.Frame):
 		# BitmapImage
 		self.bitmap = tk.BitmapImage(data=resource.x11_bmp)
 		bitmap_label = tk.Label(self, image=self.bitmap)
-		bitmap_label.grid(column=3, row=1, columnspan=3)
+		bitmap_label.grid(column=3, row=1, columnspan=4)
 
 		# Text + Scrollbar
 		text = tk.Text(self, height=10, width=20)
-		text.grid(column=6, row=1, columnspan=3, sticky='nsew')
+		text.grid(column=7, row=1, columnspan=3, sticky='nsew')
 		scrollbar1 = tk.Scrollbar(self, command=text.yview)
 		scrollbar1.grid(row=1, column=9, sticky='nsew')
 		text['yscrollcommand'] = scrollbar1.set
