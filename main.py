@@ -14,9 +14,9 @@ class SelectWindow(ttk.Frame):
 
 		self.rb_var = tk.IntVar(value=0)
 		rb1 = tk.Radiobutton(self, text="tk", variable=self.rb_var, value=0, command=self.rb_select)
-		rb1.grid(column=0, row=0, sticky='nw')
+		rb1.grid(column=0, row=0, sticky="nw")
 		rb2 = tk.Radiobutton(self, text="themed tk", variable=self.rb_var, value=1, command=self.rb_select)
-		rb2.grid(column=0, row=1, sticky='nw')
+		rb2.grid(column=0, row=1, sticky="nw")
 
 		self.style = ttk.Style()
 		themes = self.style.theme_names()  # List of themes: https://wiki.tcl-lang.org/page/List+of+ttk+Themes
@@ -27,13 +27,13 @@ class SelectWindow(ttk.Frame):
 			self.themes_box.insert(i, tn)
 		if len(themes) > 0:
 			self.themes_box.select_set(0)
-		self.themes_box.grid(column=0, row=2, sticky='nw')
+		self.themes_box.grid(column=0, row=2, sticky="nw")
 
 		btn1 = tk.Button(self, text="Open", command=self.switch_window)
 		self.themes_box.config(state="disabled")
 		btn1.grid(column=0, row=3)
 
-		self.grid(column=0, row=0, sticky='nsew')
+		self.grid(column=0, row=0, sticky="nsew")
 
 	def rb_select(self):
 		self.themes_box.config(state="normal" if self.rb_var.get() else "disabled")
@@ -81,7 +81,7 @@ class MainWindow(tk.Frame):
 		# Menu3 (Radiobuttons)
 		menu3 = tk.Menu(meta_menu)
 		meta_menu.add_cascade(label="Menu3", menu=menu3)
-		self.rb_var = tk.IntVar(value=0)  # Self needed here to set a valid state.
+		self.rb_var = tk.IntVar(value=0)  # self.(obj var) needed here to set a valid state.
 		menu3.add_radiobutton(label="Radiobutton1", variable=self.rb_var, value=0, command=lambda: print("Menu3: Radiobutton1 selected"))
 		menu3.add_radiobutton(label="Radiobutton2", variable=self.rb_var, value=1, command=lambda: print("Menu3: Radiobutton2 selected"))
 		menu3.add_radiobutton(label="Radiobutton3", variable=self.rb_var, value=2, command=lambda: print("Menu3: Radiobutton3 selected"))
@@ -132,13 +132,13 @@ class MainWindow(tk.Frame):
 		# Entry
 		entry_frame = tk.Frame(self)
 		entry_frame.grid(column=4, row=0)
-		entry1_var = tk.StringVar(self, value='Entry1')
+		entry1_var = tk.StringVar(self, value="Entry1")
 		entry1 = tk.Entry(entry_frame, width=6, textvariable=entry1_var)
 		entry1.grid(column=0, row=0)
-		entry2_var = tk.StringVar(entry_frame, value='Entry2')
+		entry2_var = tk.StringVar(entry_frame, value="Entry2")
 		entry2 = tk.Entry(entry_frame, width=6, textvariable=entry2_var)
 		entry2.grid(column=0, row=1)
-		entry3_var = tk.StringVar(entry_frame, value='Entry3')
+		entry3_var = tk.StringVar(entry_frame, value="Entry3")
 		entry3 = tk.Entry(entry_frame, width=6, textvariable=entry3_var)
 		entry3.grid(column=0, row=2)
 
@@ -184,10 +184,10 @@ class MainWindow(tk.Frame):
 
 		# Text + Scrollbar
 		text = tk.Text(self, height=10, width=20)
-		text.grid(column=7, row=1, columnspan=3, sticky='nsew')
+		text.grid(column=7, row=1, columnspan=3, sticky="nsew")
 		scrollbar1 = tk.Scrollbar(self, command=text.yview)
-		scrollbar1.grid(row=1, column=9, sticky='nsew')
-		text['yscrollcommand'] = scrollbar1.set
+		scrollbar1.grid(row=1, column=9, sticky="nsew")
+		text["yscrollcommand"] = scrollbar1.set
 		text.insert("1.0", "Text + Scrollbar\n")
 		text.insert("end", resource.lorem_ipsum_1000)
 
@@ -201,7 +201,7 @@ class MainWindow(tk.Frame):
 		parent.columnconfigure(0, weight=1)
 		parent.rowconfigure(0, weight=1)
 
-		self.grid(column=0, row=0, sticky='nsew')
+		self.grid(column=0, row=0, sticky="nsew")
 
 	def on_closing(self):
 		print("on_closing")
