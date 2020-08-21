@@ -29,7 +29,7 @@ class SelectWindow(ttk.Frame):
 			self.themes_box.select_set(0)
 		self.themes_box.grid(column=0, row=2, sticky='nw')
 
-		btn1 = tk.Button(self, text="Button1", command=self.switch_window)
+		btn1 = tk.Button(self, text="Go", command=self.switch_window)
 		self.themes_box.config(state="disabled")
 		btn1.grid(column=0, row=3)
 
